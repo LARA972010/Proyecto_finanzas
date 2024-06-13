@@ -95,4 +95,4 @@ Las visualizaciones se integran en la aplicación Flask mediante un iframe que m
 
 ## Autores
 
-- **Tu Nombre** - [tu_usuario](https://github.com/tu_usuario)
+- **Lara García Carnés**
