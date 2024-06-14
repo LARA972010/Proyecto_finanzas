@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Búsqueda</title>
+    <style>
+        /* Estilos CSS para los resultados */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Color de fondo */
+            color: #333; /* Color de texto principal */
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #007bff; /* Color de fondo de las celdas del encabezado */
+            color: #fff; /* Color de texto del encabezado */
+        }
+
+        td {
+            background-color: #fff; /* Color de fondo de las celdas de datos */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Resultados de Búsqueda</h1>
+    </header>
+
+    <main>
+        <h2>Resultados para: "{{ keywords }}"</h2>
+        {% if df.empty %}
+            <p>No se encontraron resultados para la búsqueda.</p>
+        {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Símbolo</th>
+                        <th>Nombre</th>
+                        <th>Región</th>
+                        <th>Moneda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index, row in df.iterrows() %}
+                        <tr>
+                            <td>{{ row['1. symbol'] }}</td>
+                            <td>{{ row['2. name'] }}</td>
+                            <td>{{ row['4. region'] }}</td>
+                            <td>{{ row['8. currency'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tu Empresa</p>
+    </footer>
+</body>
+</html>

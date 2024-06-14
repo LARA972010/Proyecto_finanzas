@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        /* Estilos CSS (los mismos estilos que antes) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #f0f0f0;
+            border-top: 1px solid #ccc;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Estilos para los resultados de búsqueda */
+        .search-results {
+            margin-top: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ title }}</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/otra-pagina">Otra Página</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Bienvenido a mi aplicación</h2>
+            <p>Esta es una página de ejemplo usando Flask y Jinja2.</p>
+        </section>
+
+        <!-- Formulario de búsqueda -->
+        <section class="search-form">
+            <h2>Utilidad de búsqueda de punto final</h2>
+            <p>{{ utilidad_texto }}</p>
+            <form method="post">
+                <label for="keywords">Palabras clave:</label>
+                <input type="text" id="keywords" name="keywords" required>
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        <!-- Sección de resultados de búsqueda -->
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+
+        {% if df is not none %}
+            <section class="search-results">
+                <h2>Resultados de búsqueda para: "{{ keywords }}"</h2>
+                {% if df.empty %}
+                    <p>No se encontraron resultados para la búsqueda.</p>
+                {% else %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Símbolo</th>
+                                <th>Nombre</th>
+                                <th>Región</th>
+                                <th>Moneda</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, row in df.iterrows() %}
+                                <tr>
+                                    <td>{{ row['1. symbol'] }}</td>
+                                    <td>{{ row['2. name'] }}</td>
+                                    <td>{{ row['4. region'] }}</td>
+                                    <td>{{ row['8. currency'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </section>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tu Empresa</p>
+    </footer>
+</body>
+</html>
