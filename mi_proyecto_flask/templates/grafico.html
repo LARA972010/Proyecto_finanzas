@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico para {{ empresa }}</title>
+    <!-- Incluir archivos CSS y JavaScript necesarios para Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h2>Gráfico para {{ empresa }}</h2>
+    
+    <div id="grafico">
+        <!-- Aquí se renderizará el gráfico -->
+    </div>
+
+    <script>
+        // Datos que se pasan desde Flask a Plotly
+        var data = {{ data|safe }};
+
+        // Convertir la columna 'fecha' a tipo fecha
+        data.forEach(function(d) {
+            d.fecha = new Date(d.fecha);
+        });
+
+        var trace = {
+            x: data.map(function(d) { return d.fecha; }),
+            y: data.map(function(d) { return d.close; }),
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Precio de Cierre'
+        };
+
+        var layout = {
+            title: 'Precio de Cierre de {{ empresa }}',
+            xaxis: {
+                title: 'Fecha'
+            },
+            yaxis: {
+                title: 'Precio'
+            }
+        };
+
+        Plotly.newPlot('grafico', [trace], layout);
+    </script>
+</body>
+</html>

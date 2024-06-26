@@ -93,6 +93,51 @@ Las visualizaciones se integran en la aplicación Flask mediante un iframe que m
 2. **Más Fuentes de Datos**: Integrar más fuentes de datos financieros, como noticias de finanzas y análisis de sentimiento en redes sociales.
 3. **Interactividad Mejorada**: Utilizar bibliotecas de JavaScript como D3.js o Chart.js para crear gráficos y mapas interactivos.
 
+
+# Datod de las empresas que voy a incorporar a mi bbdd:
+- IBM (International Business Machines Corporation):
+    Sector: Tecnología.
+    Descripción: IBM es una de las mayores compañías de tecnología del mundo, conocida por sus productos de hardware y software, así como por sus servicios de consultoría y tecnología en la nube.
+
+- AAPL (Apple Inc.):
+    Sector: Tecnología.
+    Descripción: Apple es famosa por sus productos electrónicos de consumo como el iPhone, iPad, MacBook, y Apple Watch, además de servicios como Apple Music y iCloud.
+- MSFT (Microsoft Corporation):
+    Sector: Tecnología.
+    Descripción: Microsoft es conocido por su software Windows, la suite de productividad Office, y sus servicios de nube Azure. También desarrolla hardware como la Xbox.
+
+- AMZN (Amazon.com, Inc.):
+    Sector: Comercio electrónico y tecnología.
+    Descripción: Amazon es el gigante del comercio electrónico y ofrece servicios en la nube a través de AWS (Amazon Web Services). También es conocido por su línea de dispositivos electrónicos como Kindle y Echo.
+
+- GOOGL (Alphabet Inc.):
+    Sector: Tecnología.
+    Descripción: Alphabet es la empresa matriz de Google, conocido por su motor de búsqueda, YouTube, Android, y otros servicios de publicidad y software.
+
+- TSLA (Tesla, Inc.):
+    Sector: Automoción y Energía.
+    Descripción: Tesla es líder en la fabricación de vehículos eléctricos y soluciones de energía sostenible, como paneles solares y sistemas de almacenamiento de energía.
+
+- NFLX (Netflix, Inc.):
+    Sector: Entretenimiento.
+    Descripción: Netflix es una plataforma de streaming de vídeo que ofrece una amplia gama de series, películas y documentales, produciendo además contenido original.
+
+- NVDA (NVIDIA Corporation):
+    Sector: Tecnología.
+    Descripción: NVIDIA es conocida por sus tarjetas gráficas y procesadores de alto rendimiento, utilizados en gaming, IA, y centros de datos.
+
+- FB (Meta Platforms, Inc.) (anteriormente Facebook):
+    Sector: Tecnología y Redes Sociales.
+    Descripción: Meta Platforms es la empresa matriz de Facebook, Instagram, WhatsApp y Oculus, centrada en redes sociales y realidad virtual.
+    
+- PYPL (PayPal Holdings, Inc.): 
+    Sector: Servicios Financieros.
+    Descripción: PayPal es una plataforma de pagos en línea que permite a los usuarios enviar y recibir dinero a través de internet, y es también propietario de Venmo.
+
+Estas empresas representan una amplia gama de sectores y son algunas de las más influyentes en sus respectivos campos.
+
+
+
 ## Autores
 
-- **Tu Nombre** - [tu_usuario](https://github.com/tu_usuario)
+- ** Lara García ** - 
