@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal</title>
+    <title>FinanData - Inicio</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
         body {
@@ -35,6 +35,47 @@
         .container {
             padding: 20px;
         }
+        .hero {
+            text-align: center;
+            padding: 50px 0;
+        }
+        .hero img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 3em;
+            color: #021931;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            color: #f7f4f4;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+        }
+        .feature {
+            text-align: center;
+            padding: 20px;
+            background-color: #021931;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #f7f4f4;
+            flex: 1;
+            margin: 0 10px;
+        }
+        .feature img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -47,8 +88,28 @@
         <a href="/grafico">Gráficos</a>
     </nav>
     <div class="container">
-        <h2>Bienvenido a FinanData</h2>
-        <p>Esta página está pensada para conocer las empresas.</p>
+        <div class="hero">
+            <img src="/static/images/finance.jpg" alt="Finance Image">
+            <h1>Bienvenidos a FinanData</h1>
+            <p>La mejor herramienta para analizar y predecir datos financieros.</p>
+        </div>
+        <div class="features">
+            <div class="feature">
+                <img src="/static/images/chart.png" alt="Charts">
+                <h3>Análisis Detallado</h3>
+                <p>Obtén gráficos detallados de las empresas más importantes.</p>
+            </div>
+            <div class="feature">
+                <img src="/static/images/prediction.png" alt="Predictions">
+                <h3>Predicciones Precisos</h3>
+                <p>Utiliza nuestro modelo de predicción para tomar mejores decisiones.</p>
+            </div>
+            <div class="feature">
+                <img src="/static/images/reports.png" alt="Reports">
+                <h3>Informes Personalizados</h3>
+                <p>Genera informes personalizados según tus necesidades.</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
