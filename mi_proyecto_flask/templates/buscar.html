@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Búsqueda</title>
+    <title>Buscar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
         body {
@@ -16,8 +16,21 @@
         header {
             background-color: #021931;
             padding: 10px;
-            color: #fff;
+            color: #f7f4f4;
             text-align: center;
+        }
+        nav {
+            background-color: #c9cce9;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
         }
         .container {
             padding: 20px;
@@ -26,17 +39,26 @@
 </head>
 <body>
     <header>
-        <h1>Búsqueda de Información</h1>
+        <h1>FinanData</h1>
     </header>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/buscar">Buscar</a>
+        <a href="/grafico">Gráficos</a>
+    </nav>
     <div class="container">
-        <h2>Búsqueda de Símbolos Bursátiles</h2>
-        <p>
-            ¡Encuentra información financiera de tus empresas favoritas! Utiliza nuestra herramienta de búsqueda para obtener detalles actualizados sobre símbolos bursátiles, empresas y más.
-        </p>
-        <form method="post" action="/">
-            <input type="text" name="keywords" placeholder="Ingrese palabras clave">
-            <input type="submit" value="Buscar">
+        <h2>Buscar Empresa</h2>
+        <form action="/buscar" method="post">
+            <div class="form-group">
+                <label for="keywords">Palabras clave:</label>
+                <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Ingrese palabras clave">
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
+        {% if keywords %}
+            <p>Resultados de búsqueda para: {{ keywords }}</p>
+            <!-- Aquí irían los resultados de la búsqueda -->
+        {% endif %}
     </div>
 </body>
 </html>

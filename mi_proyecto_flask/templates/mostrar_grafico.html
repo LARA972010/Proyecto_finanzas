@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico para {{ empresa }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #678a95;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #021931;
+            padding: 10px;
+            color: #f7f4f4;
+            text-align: center;
+        }
+        nav {
+            background-color: #c9cce9;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FinanData</h1>
+    </header>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/buscar">Buscar</a>
+        <a href="/grafico">Gráficos</a>
+    </nav>
+    <div class="container">
+        <h2>Gráfico para {{ empresa }}</h2>
+        <div id="grafico">
+            <!-- Aquí se renderizará el gráfico -->
+        </div>
+        <script>
+            var data = {{ data|safe }};
+            data.forEach(function(d) {
+                d.fecha = new Date(d.fecha);
+            });
+
+            var trace = {
+                x: data.map(function(d) { return d.fecha; }),
+                y: data.map(function(d) { return d['4. close']; }),
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Precio de Cierre'
+            };
+
+            var layout = {
+                title: 'Precio de Cierre de {{ empresa }}',
+                xaxis: {
+                    title: 'Fecha'
+                },
+                yaxis: {
+                    title: 'Precio'
+                }
+            };
+
+            Plotly.newPlot('grafico', [trace], layout);
+        </script>
+        <div id="explicacion" class="mt-4">
+            <h3>Resumen del Gráfico</h3>
+            <p><strong>Tendencia:</strong> {{ resumen.tendencia }}</p>
+            <p><strong>Máximo Precio de Cierre:</strong> {{ resumen.max_precio }}</p>
+            <p><strong>Mínimo Precio de Cierre:</strong> {{ resumen.min_precio }}</p>
+            <p><strong>Volatilidad (Desviación Estándar):</strong> {{ resumen.volatilidad }}</p>
+        </div>
+    </div>
+</body>
+</html>

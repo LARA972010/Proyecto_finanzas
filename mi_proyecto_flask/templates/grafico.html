@@ -3,45 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico para {{ empresa }}</title>
-    <!-- Incluir archivos CSS y JavaScript necesarios para Plotly -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Gráficos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #678a95;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #021931;
+            padding: 10px;
+            color: #f7f4f4;
+            text-align: center;
+        }
+        nav {
+            background-color: #c9cce9;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Gráfico para {{ empresa }}</h2>
-    
-    <div id="grafico">
-        <!-- Aquí se renderizará el gráfico -->
+    <header>
+        <h1>FinanData</h1>
+    </header>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/buscar">Buscar</a>
+        <a href="/grafico">Gráficos</a>
+    </nav>
+    <div class="container">
+        <h2>Seleccione una empresa para ver el gráfico</h2>
+        <form action="/grafico" method="post">
+            <div class="form-group">
+                <label for="empresa">Empresa:</label>
+                <select class="form-control" id="empresa" name="empresa">
+                    {% for empresa in empresas %}
+                        <option value="{{ empresa }}">{{ empresa }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Ver Gráfico</button>
+        </form>
     </div>
-
-    <script>
-        // Datos que se pasan desde Flask a Plotly
-        var data = {{ data|safe }};
-
-        // Convertir la columna 'fecha' a tipo fecha
-        data.forEach(function(d) {
-            d.fecha = new Date(d.fecha);
-        });
-
-        var trace = {
-            x: data.map(function(d) { return d.fecha; }),
-            y: data.map(function(d) { return d.close; }),
-            type: 'scatter',
-            mode: 'lines',
-            name: 'Precio de Cierre'
-        };
-
-        var layout = {
-            title: 'Precio de Cierre de {{ empresa }}',
-            xaxis: {
-                title: 'Fecha'
-            },
-            yaxis: {
-                title: 'Precio'
-            }
-        };
-
-        Plotly.newPlot('grafico', [trace], layout);
-    </script>
 </body>
 </html>
