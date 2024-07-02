@@ -53,11 +53,13 @@
             <!-- Aquí se renderizará el gráfico -->
         </div>
         <script>
+            // Convertir las fechas a objetos Date
             var data = {{ data|safe }};
             data.forEach(function(d) {
                 d.fecha = new Date(d.fecha);
             });
 
+            // Definir los datos del gráfico
             var trace = {
                 x: data.map(function(d) { return d.fecha; }),
                 y: data.map(function(d) { return d['4. close']; }),
@@ -66,6 +68,7 @@
                 name: 'Precio de Cierre'
             };
 
+            // Definir el diseño del gráfico
             var layout = {
                 title: 'Precio de Cierre de {{ empresa }}',
                 xaxis: {
@@ -76,6 +79,7 @@
                 }
             };
 
+            // Renderizar el gráfico utilizando Plotly
             Plotly.newPlot('grafico', [trace], layout);
         </script>
         <div id="explicacion" class="mt-4">
@@ -84,6 +88,17 @@
             <p><strong>Máximo Precio de Cierre:</strong> {{ resumen.max_precio }}</p>
             <p><strong>Mínimo Precio de Cierre:</strong> {{ resumen.min_precio }}</p>
             <p><strong>Volatilidad (Desviación Estándar):</strong> {{ resumen.volatilidad }}</p>
+            
+            <!-- Mensajes según el tamaño de la volatilidad -->
+            {% if resumen.volatilidad < 5 %}
+                <p>La volatilidad es baja, lo que indica movimientos relativamente estables en el precio.</p>
+            {% elif resumen.volatilidad >= 5 and resumen.volatilidad < 10 %}
+                <p>La volatilidad es moderada, lo que sugiere cierta variabilidad en el precio pero no extremadamente volátil.</p>
+            {% else %}
+                <p>La volatilidad es alta, lo que señala movimientos significativos en el precio, potencialmente riesgosos para inversores.</p>
+            {% endif %}
+            
+            <!-- Otros mensajes según necesidades -->
         </div>
     </div>
 </body>

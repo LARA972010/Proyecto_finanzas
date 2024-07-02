@@ -1,13 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
 import os
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+import numpy as np
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # Lista de empresas
 empresas = [
     'IBM', 'AAPL', 'MSFT', 'AMZN', 'GOOGL', 
-    'TSLA', 'NFLX', 'NVDA', 'FB', 'PYPL'
+    'TSLA', 'NFLX', 'NVDA', 'PYPL'
 ]
 
 # Función para cargar los datos desde el CSV correspondiente a la empresa
@@ -21,7 +25,7 @@ def cargar_datos_desde_csv(empresa):
     
     return data
 
-# Función para generar un resumen de los datos
+# Función para generar un resumen de los datos e incluir predicciones
 def generar_resumen(data):
     resumen = {}
 
@@ -37,6 +41,29 @@ def generar_resumen(data):
 
     # Calcular la volatilidad (desviación estándar de los precios de cierre)
     resumen['volatilidad'] = data['4. close'].std()
+
+    # Preparar los datos para la predicción (solo usaremos el precio de cierre como feature)
+    X = data.index.values.reshape(-1, 1)  # Usaremos los índices de los datos como feature
+    y = data['4. close'].values.reshape(-1, 1)
+
+    # Dividir los datos en entrenamiento y prueba
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Inicializar y entrenar el modelo de regresión lineal
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+
+    # Hacer predicciones sobre los datos de prueba
+    y_pred = model.predict(X_test)
+
+    # Calcular el error cuadrático medio (MSE)
+    mse = mean_squared_error(y_test, y_pred)
+    resumen['mse'] = mse
+
+    # Hacer una predicción para el próximo período (añadir un nuevo punto al final)
+    nuevo_indice = np.array([X[-1][0] + 1]).reshape(-1, 1)
+    nueva_prediccion = model.predict(nuevo_indice)[0][0]
+    resumen['prediccion_proximo'] = nueva_prediccion
 
     return resumen
 
