@@ -33,7 +33,7 @@ def obtener_datos_mensuales(symbol):
     return df
 
 # Lista de símbolos de empresas de interés
-empresas = ['IBM', 'AAPL', 'MSFT', 'AMZN', 'GOOGL', 'TSLA', 'NFLX', 'NVDA', 'FB', 'PYPL']
+empresas = ['IBM', 'AAPL', 'MSFT', 'AMZN', 'GOOGL', 'TSLA', 'NFLX', 'NVDA', 'PYPL']
 
 # Bucle para obtener datos y guardar en archivos CSV
 for empresa in empresas:

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Opciones para {{ empresa }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #021931;
+            padding: 15px 0;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        nav {
+            background-color: #c9cce9;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        nav a {
+            margin-right: 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #021931;
+            color: #fff;
+            font-size: 1.25rem;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h3 {
+            border-bottom: 2px solid #021931;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #021931;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .btn-back {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #021931;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-back:hover {
+            background-color: #1a3a5f;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FinanData</h1>
+    </header>
+    <nav class="text-center">
+        <a href="/">Inicio</a>
+        <a href="/buscar">Buscar</a>
+        <a href="/grafico">Gráficos</a>
+        <a href="/opcione">Estudios de Derivados</a>
+    </nav>
+    <div class="container">
+        <h2 class="text-center mb-4">Análisis de Opciones para {{ empresa }}</h2>
+        
+        <!-- Gráfico 1: Volatilidad Implícita vs. Precio de Ejercicio -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Volatilidad Implícita vs. Precio de Ejercicio</h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong>Descripción del Gráfico:</strong> Este gráfico de dispersión muestra la relación entre la volatilidad implícita y el precio de ejercicio de las opciones analizadas. Cada punto en el gráfico representa un par de valores: el precio de ejercicio en el eje x y la volatilidad implícita en el eje y.
+                </p>
+                <p>
+                    <strong>Explicación:</strong> La volatilidad implícita es una medida de la expectativa del mercado sobre la magnitud de los futuros movimientos de precios del activo subyacente. Si la volatilidad implícita es alta, se espera que el precio del activo subyacente experimente cambios significativos en el futuro cercano. Si es baja, se espera que los precios fluctúen menos.
+                    <br>
+                    El precio de ejercicio (strike) es el precio predeterminado al cual se puede comprar (en el caso de una opción de compra) o vender (en el caso de una opción de venta) el activo subyacente. En el gráfico, este valor se representa en el eje x.
+                    <br>
+                    <strong>Análisis Interpretativo:</strong> Observar cómo varía la volatilidad implícita con diferentes precios de ejercicio puede revelar patrones o tendencias en las expectativas del mercado. Por ejemplo, picos en la volatilidad implícita podrían indicar momentos de incertidumbre o eventos esperados que podrían afectar el precio del activo subyacente. Analizar cómo la volatilidad implícita varía con diferentes precios de ejercicio proporciona información sobre los niveles de riesgo percibidos por los participantes del mercado en diferentes escenarios de precios.
+                </p>
+                <img src="/static/volatilidad_vs_strike.png" alt="Volatilidad vs. Precio de Ejercicio" class="img-fluid">
+            </div>
+        </div>
+        
+        <!-- Gráfico 2: Griegas vs. Precio de Ejercicio -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Griegas vs. Precio de Ejercicio</h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong>Descripción del Gráfico:</strong> Este gráfico compara las diferentes medidas griegas (Delta, Gamma, Theta, Vega, Rho) en función del precio de ejercicio de las opciones. Cada línea representa una métrica griega específica a lo largo de los diferentes precios de ejercicio.
+                </p>
+                <p>
+                    <strong>Explicación de las Griegas:</strong>
+                    <ul>
+                        <li><strong>Delta:</strong> Mide la sensibilidad del precio de una opción frente a cambios en el precio del activo subyacente.</li>
+                        <li><strong>Gamma:</strong> Mide la tasa de cambio del delta de una opción en relación con el precio del activo subyacente.</li>
+                        <li><strong>Theta:</strong> Mide la sensibilidad del precio de una opción a la disminución del tiempo hasta su vencimiento.</li>
+                        <li><strong>Vega:</strong> Mide la sensibilidad del precio de una opción frente a cambios en la volatilidad del activo subyacente.</li>
+                        <li><strong>Rho:</strong> Mide la sensibilidad del precio de una opción frente a cambios en la tasa de interés libre de riesgo.</li>
+                    </ul>
+                    <strong>Análisis Interpretativo:</strong> Cada griega proporciona información sobre cómo diferentes factores afectan el precio y la valuación de las opciones en relación con los precios de ejercicio. Por ejemplo, un aumento en Delta puede indicar un mayor riesgo direccional, mientras que un alto Theta puede reflejar una mayor erosión del valor temporal de la opción.
+                </p>
+                <img src="/static/griegas_vs_strike.png" alt="Griegas vs. Precio de Ejercicio" class="img-fluid">
+            </div>
+        </div>
+        
+        <!-- Gráfico 3: Histograma del Spread Bid-Ask -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Histograma del Spread Bid-Ask</h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong>Descripción del Gráfico:</strong> Este histograma muestra la distribución de los spreads bid-ask en los datos analizados. El spread bid-ask es la diferencia entre el precio de oferta (bid) y el precio de demanda (ask) de una opción en un momento dado.
+                </p>
+                <p>
+                    <strong>Explicación del Spread Bid-Ask:</strong> El spread bid-ask indica la liquidez del mercado de opciones. Un spread más estrecho generalmente indica mayor liquidez y menores costos de transacción.
+                    <br>
+                    <strong>Análisis Interpretativo:</strong> Un histograma del spread bid-ask puede revelar la frecuencia con la que ocurren spreads estrechos (alta liquidez) versus spreads más anchos (baja liquidez). Esto es crucial para los operadores, ya que spreads más estrechos implican costos de transacción más bajos y mejor ejecución de órdenes.
+                </p>
+                <img src="/static/spread_bid_ask_histogram.png" alt="Histograma del Spread Bid-Ask" class="img-fluid">
+            </div>
+        </div>
+        
+        <!-- Gráfico 4: Volumen vs. Precio de Ejercicio -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Volumen vs. Precio de Ejercicio</h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong>Descripción del Gráfico:</strong> Este gráfico de dispersión muestra cómo varía el volumen de negociación de opciones en función de los diferentes precios de ejercicio.
+                </p>
+                <p>
+                    <strong>Explicación del Volumen:</strong> El volumen representa el número total de contratos de opciones negociados en un período específico.
+                    <br>
+                    <strong>Análisis Interpretativo:</strong> Observar dónde se concentra el volumen de negociación en relación con los precios de ejercicio puede proporcionar insights sobre los niveles de interés del mercado en ciertos precios. Esto puede ser útil para identificar áreas de soporte o resistencia basadas en el volumen de transacciones.
+                </p>
+                <img src="/static/volumen_vs_strike.png" alt="Volumen vs. Precio de Ejercicio" class="img-fluid">
+            </div>
+        </div>
+        
+        <!-- Gráfico 5: Open Interest vs. Precio de Ejercicio -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Open Interest vs. Precio de Ejercicio</h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong>Descripción del Gráfico:</strong> Este gráfico de dispersión muestra cómo varía el open interest en relación con los precios de ejercicio de las opciones.
+                </p>
+                <p>
+                    <strong>Explicación del Open Interest:</strong> El open interest es el número total de contratos de opciones abiertos y pendientes de liquidación en un precio de ejercicio específico.
+                    <br>
+                    <strong>Análisis Interpretativo:</strong> Observar dónde se concentra el open interest puede indicar niveles significativos de interés o áreas clave de soporte/resistencia en el mercado de opciones. Este análisis es útil para evaluar la dirección potencial del mercado según las posiciones abiertas.
+                </p>
+                <img src="/static/open_interest_vs_strike.png" alt="Open Interest vs. Precio de Ejercicio" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    <footer class="text-center py-3">
+        <p>© 2024 FinanData. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
