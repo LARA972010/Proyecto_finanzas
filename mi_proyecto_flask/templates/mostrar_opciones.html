@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis de Opciones para {{ empresa }}</title>
+    <title>Gráfico para {{ empresa }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f7f6;
+            font-family: Arial, sans-serif;
+            background-color: #f6f9fa;
             color: #333;
             margin: 0;
             padding: 0;
         }
         header {
             background-color: #021931;
-            padding: 15px 0;
-            color: #fff;
+            padding: 10px;
+            color: #f7f4f4;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         nav {
             background-color: #c9cce9;
@@ -35,57 +35,10 @@
             text-decoration: underline;
         }
         .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .card {
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .card-header {
-            background-color: #021931;
-            color: #fff;
-            font-size: 1.25rem;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-        .card-body {
             padding: 20px;
         }
-        .card img {
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h3 {
-            border-bottom: 2px solid #021931;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: #021931;
-        }
-        p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .btn-back {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #021931;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn-back:hover {
-            background-color: #1a3a5f;
-            text-decoration: none;
+        #grafico {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -97,7 +50,7 @@
         <a href="/">Inicio</a>
         <a href="/buscar">Buscar</a>
         <a href="/grafico">Gráficos</a>
-        <a href="/opcione">Estudios de Derivados</a>
+        <a href="/opciones">Estudios de Derivados</a>
     </nav>
     <div class="container">
         <h2 class="text-center mb-4">Análisis de Opciones para {{ empresa }}</h2>
@@ -122,28 +75,70 @@
             </div>
         </div>
         
-        <!-- Gráfico 2: Griegas vs. Precio de Ejercicio -->
-        <div class="card">
-            <div class="card-header">
-                <h3>Griegas vs. Precio de Ejercicio</h3>
-            </div>
-            <div class="card-body">
-                <p>
-                    <strong>Descripción del Gráfico:</strong> Este gráfico compara las diferentes medidas griegas (Delta, Gamma, Theta, Vega, Rho) en función del precio de ejercicio de las opciones. Cada línea representa una métrica griega específica a lo largo de los diferentes precios de ejercicio.
-                </p>
-                <p>
-                    <strong>Explicación de las Griegas:</strong>
-                    <ul>
-                        <li><strong>Delta:</strong> Mide la sensibilidad del precio de una opción frente a cambios en el precio del activo subyacente.</li>
-                        <li><strong>Gamma:</strong> Mide la tasa de cambio del delta de una opción en relación con el precio del activo subyacente.</li>
-                        <li><strong>Theta:</strong> Mide la sensibilidad del precio de una opción a la disminución del tiempo hasta su vencimiento.</li>
-                        <li><strong>Vega:</strong> Mide la sensibilidad del precio de una opción frente a cambios en la volatilidad del activo subyacente.</li>
-                        <li><strong>Rho:</strong> Mide la sensibilidad del precio de una opción frente a cambios en la tasa de interés libre de riesgo.</li>
-                    </ul>
-                    <strong>Análisis Interpretativo:</strong> Cada griega proporciona información sobre cómo diferentes factores afectan el precio y la valuación de las opciones en relación con los precios de ejercicio. Por ejemplo, un aumento en Delta puede indicar un mayor riesgo direccional, mientras que un alto Theta puede reflejar una mayor erosión del valor temporal de la opción.
-                </p>
-                <img src="/static/griegas_vs_strike.png" alt="Griegas vs. Precio de Ejercicio" class="img-fluid">
-            </div>
+        <!-- Aquí se renderizará el gráfico interactivo de las griegas -->
+        <div id="grafico">
+            <script>
+                // Datos de ejemplo para mostrar cómo configurar el gráfico
+                var data = {
+                    strike: [100, 110, 120, 130, 140],
+                    delta: [0.5, 0.4, 0.3, 0.2, 0.1],
+                    gamma: [0.2, 0.3, 0.4, 0.5, 0.6],
+                    theta: [0.1, 0.2, 0.3, 0.4, 0.5],
+                    vega: [0.3, 0.2, 0.4, 0.1, 0.5],
+                    rho: [0.4, 0.1, 0.5, 0.2, 0.3]
+                };
+
+                // Definir los datos del gráfico con Plotly
+                var traceDelta = {
+                    x: data.strike,
+                    y: data.delta,
+                    mode: 'lines+markers',
+                    name: 'Delta',
+                    type: 'scatter'
+                };
+                var traceGamma = {
+                    x: data.strike,
+                    y: data.gamma,
+                    mode: 'lines+markers',
+                    name: 'Gamma',
+                    type: 'scatter'
+                };
+                var traceTheta = {
+                    x: data.strike,
+                    y: data.theta,
+                    mode: 'lines+markers',
+                    name: 'Theta',
+                    type: 'scatter'
+                };
+                var traceVega = {
+                    x: data.strike,
+                    y: data.vega,
+                    mode: 'lines+markers',
+                    name: 'Vega',
+                    type: 'scatter'
+                };
+                var traceRho = {
+                    x: data.strike,
+                    y: data.rho,
+                    mode: 'lines+markers',
+                    name: 'Rho',
+                    type: 'scatter'
+                };
+
+                var layout = {
+                    title: 'Griegas vs. Precio de Ejercicio',
+                    xaxis: {
+                        title: 'Precio de Ejercicio'
+                    },
+                    yaxis: {
+                        title: 'Valor de la Griega'
+                    }
+                };
+
+                var data = [traceDelta, traceGamma, traceTheta, traceVega, traceRho];
+
+                Plotly.newPlot('grafico', data, layout);
+            </script>
         </div>
         
         <!-- Gráfico 3: Histograma del Spread Bid-Ask -->

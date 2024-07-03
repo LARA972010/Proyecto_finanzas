@@ -9,6 +9,8 @@ import matplotlib
 matplotlib.use('Agg')  # Establece el backend a 'Agg' (renderizado no interactivo)
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.graph_objs as go
+
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -110,20 +112,21 @@ def generar_graficos_opciones(data):
     plt.savefig('static/volatilidad_vs_strike.png')
     plt.close()
 
-    # Análisis de las griegas
-    plt.figure(figsize=(10, 6))
-    sns.scatterplot(x='strike', y='delta', data=data, label='Delta')
-    sns.scatterplot(x='strike', y='gamma', data=data, label='Gamma')
-    sns.scatterplot(x='strike', y='theta', data=data, label='Theta')
-    sns.scatterplot(x='strike', y='vega', data=data, label='Vega')
-    sns.scatterplot(x='strike', y='rho', data=data, label='Rho')
-    plt.title('Griegas vs. Precio de Ejercicio')
-    plt.xlabel('Precio de Ejercicio')
-    plt.ylabel('Valor de la Griega')
-    plt.legend()
-    plt.grid(True)
-    plt.savefig('static/griegas_vs_strike.png')
-    plt.close()
+    # Análisis de las griegas con Plotly
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=data['strike'], y=data['delta'], mode='markers', name='Delta'))
+    fig.add_trace(go.Scatter(x=data['strike'], y=data['gamma'], mode='markers', name='Gamma'))
+    fig.add_trace(go.Scatter(x=data['strike'], y=data['theta'], mode='markers', name='Theta'))
+    fig.add_trace(go.Scatter(x=data['strike'], y=data['vega'], mode='markers', name='Vega'))
+    fig.add_trace(go.Scatter(x=data['strike'], y=data['rho'], mode='markers', name='Rho'))
+
+    fig.update_layout(title='Griegas vs. Precio de Ejercicio',
+                    xaxis_title='Precio de Ejercicio',
+                    axis_title='Valor de la Griega',
+                    legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01))
+    
+    # Guardar el gráfico interactivo en un archivo HTML
+    fig.write_html('static/griegas_vs_strike_interactivo.html')
 
     # ** Nuevo código para análisis de Spread Bid-Ask, Volumen y Open Interest **
     

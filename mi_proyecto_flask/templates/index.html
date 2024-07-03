@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #678a95;
+            background-color: #eff0f1;
             color: #333;
             margin: 0;
             padding: 0;
@@ -21,19 +21,25 @@
         }
         nav {
             background-color: #c9cce9;
-            padding: 10px;
-            margin-bottom: 20px;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         nav a {
-            margin-right: 10px;
+            margin-right: 20px;
             color: #333;
             text-decoration: none;
+            font-weight: bold;
         }
         nav a:hover {
             text-decoration: underline;
         }
         .container {
+            max-width: 1000px;
+            margin: 20px auto;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .hero {
             text-align: center;
@@ -82,7 +88,7 @@
     <header>
         <h1>FinanData</h1>
     </header>
-    <nav>
+    <nav class="text-center">
         <a href="/">Inicio</a>
         <a href="/buscar">Buscar</a>
         <a href="/grafico">Gráficos</a>
@@ -92,7 +98,7 @@
         <div class="hero">
             <img src="/static/images/finances.png" alt="Finance Image">
             <h1>Bienvenidos a FinanData</h1>
-            <p>La mejor herramienta para analizar y predecir datos financieros.</p>
+            <p style="color: #000000;">La mejor herramienta para analizar y predecir datos financieros.</p>
         </div>
         <div class="features">
             <div class="feature">

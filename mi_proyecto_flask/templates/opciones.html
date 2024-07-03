@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #678a95;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
             color: #333;
             margin: 0;
             padding: 0;
@@ -21,19 +21,25 @@
         }
         nav {
             background-color: #c9cce9;
-            padding: 10px;
-            margin-bottom: 20px;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         nav a {
-            margin-right: 10px;
+            margin-right: 20px;
             color: #333;
             text-decoration: none;
+            font-weight: bold;
         }
         nav a:hover {
             text-decoration: underline;
         }
         .container {
+            max-width: 1000px;
+            margin: 20px auto;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -41,7 +47,7 @@
     <header>
         <h1>FinanData</h1>
     </header>
-    <nav>
+    <nav class="text-center">
         <a href="/">Inicio</a>
         <a href="/buscar">Buscar</a>
         <a href="/grafico">Gráficos</a>
