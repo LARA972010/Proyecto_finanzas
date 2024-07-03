@@ -122,7 +122,7 @@ def generar_graficos_opciones(data):
 
     fig.update_layout(title='Griegas vs. Precio de Ejercicio',
                     xaxis_title='Precio de Ejercicio',
-                    axis_title='Valor de la Griega',
+                    yaxis_title='Valor de la Griega',
                     legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01))
     
     # Guardar el gráfico interactivo en un archivo HTML
