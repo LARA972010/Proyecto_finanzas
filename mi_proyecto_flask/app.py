@@ -14,60 +14,15 @@ from dash import Dash
 import dash_html_components as html 
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
+from dashboard.dash_app import init_dashboard
 
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
-# confighuracion de dash:
-dash_app = Dash(__name__, server=app, url_base_pathname='/dashboard/')
+# Inicializa la app de Dash
+init_dashboard(app)
+# Lista de empresas
+empresas = ['IBM', 'AAPL', 'MSFT', 'AMZN', 'GOOGL', 'TSLA', 'NFLX', 'NVDA', 'PYPL']
 
-
-def cargar_datos_empresa(empresa):
-    json_file = f'dashboard{empresa}.json'
-    try:
-        data = pd.read_json(json_file)
-    except FileNotFoundError:
-        return None
-    return data
-
-# Configuración del layout de Dash
-dash_app.layout = html.Div([
-    html.H1('Dashboard de Empresas'),
-    dcc.Dropdown(
-        id='empresa-dropdown',
-        options=[{'label': empresa, 'value': empresa} for empresa in empresas],
-        value='AAPL'
-    ),
-    dcc.Graph(id='market-cap-graph'),
-    dcc.Graph(id='pe-ratio-graph')
-])
-
-@dash_app.callback(
-    Output('market-cap-graph', 'figure'),
-    Output('pe-ratio-graph', 'figure'),
-    [Input('empresa-dropdown', 'value')]
-)
-def update_graphs(selected_empresa):
-    data = cargar_datos_empresa(selected_empresa)
-    if data is None:
-        return {}, {}
-
-    # Gráfico de capitalización de mercado
-    fig1 = go.Figure(data=[
-        go.Bar(name='MarketCap', x=[selected_empresa], y=[data['MarketCapitalization'].values[0]])
-    ])
-    fig1.update_layout(title='Capitalización de Mercado')
-
-    # Gráfico de P/E Ratio
-    fig2 = go.Figure(data=[
-        go.Bar(name='P/E Ratio', x=[selected_empresa], y=[data['PERatio'].values[0]])
-    ])
-    fig2.update_layout(title='P/E Ratio')
-
-    return fig1, fig2
-
-
-
-# -----------------------------------------------------------------------
 
 # Configuración inicial de Matplotlib y Seaborn
 def setup():
@@ -84,12 +39,6 @@ def setup():
 
     return app
 
-
-# Lista de empresas
-empresas = [
-    'IBM', 'AAPL', 'MSFT', 'AMZN', 'GOOGL', 
-    'TSLA', 'NFLX', 'NVDA', 'PYPL'
-]
 
 # Función para cargar los datos desde el CSV correspondiente a la empresa
 def cargar_datos_desde_csv(empresa):
