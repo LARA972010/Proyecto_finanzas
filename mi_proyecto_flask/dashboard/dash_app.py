@@ -7,6 +7,9 @@ from dash.dependencies import Input, Output
 def init_dashboard(server):
     dash_app = Dash(__name__, server=server, url_base_pathname='/dashboard/')
 
+    # Agregar hoja de estilo CSS personalizada
+    dash_app.css.append_css({"external_url": "/assets/styles.css"})
+
     empresas = ['IBM', 'AAPL', 'MSFT', 'AMZN', 'GOOGL', 'TSLA', 'NFLX', 'NVDA', 'PYPL']
     datos_a_comparar = ['MarketCapitalization', 'PERatio', 'RevenueTTM', 'ProfitMargin']
 
@@ -44,15 +47,15 @@ def init_dashboard(server):
         return data
 
     dash_app.layout = html.Div([
-        html.H1('Dashboard de Empresas', style={'color': '#ffffff', 'text-align': 'center'}),
+        html.H1('Dashboard de Empresas', className='title'),
         html.Div(id='info-container', className='row', children=[
-            html.Div(id='info-box', className='four columns'),
+            html.Div(id='info-box', className='four columns info-box'),
             html.Div(className='eight columns', children=[
                 dcc.Dropdown(
                     id='empresa-dropdown',
                     options=[{'label': empresa, 'value': empresa} for empresa in empresas],
                     value='AAPL',
-                    style={'width': '100%', 'color': '#000000'}  # Color del texto negro
+                    className='dropdown'
                 )
             ])
         ]),
@@ -63,23 +66,27 @@ def init_dashboard(server):
                     options=[{'label': empresa, 'value': empresa} for empresa in empresas],
                     multi=True,
                     placeholder='Seleccione empresas para comparar',
-                    style={'width': '100%', 'color': '#000000'}  # Color del texto negro
+                    className='dropdown'
                 ),
                 dcc.Dropdown(
                     id='dato-dropdown',
                     options=[{'label': dato, 'value': dato} for dato in datos_a_comparar],
                     placeholder='Seleccione un dato para comparar',
                     value='MarketCapitalization',
-                    style={'width': '100%', 'color': '#000000'}  # Color del texto negro
+                    className='dropdown'
                 )
             ], className='twelve columns'),
-            dcc.Graph(id='comparacion-graph', className='twelve columns'),
-            dcc.Graph(id='utilidad-neta-graph', className='six columns'),
-            dcc.Graph(id='ebitda-ebit-graph', className='six columns'),
-            dcc.Graph(id='margen-utilidad-graph', className='six columns'),
-            dcc.Graph(id='ingresos-gastos-graph', className='six columns'),
-        ])
-    ], style={'background-color': '#121212', 'font-family': 'Arial, sans-serif', 'padding': '20px', 'color': '#ffffff'})
+            dcc.Graph(id='comparacion-graph', className='twelve columns graph'),
+            html.Div([
+                dcc.Graph(id='utilidad-neta-graph', className='six columns graph'),
+                dcc.Graph(id='ebitda-ebit-graph', className='six columns graph')
+            ], className='row'),
+            html.Div([
+                dcc.Graph(id='margen-utilidad-graph', className='six columns graph'),
+                dcc.Graph(id='ingresos-gastos-graph', className='six columns graph')
+            ], className='row'),
+        ], style={'margin-top': '20px'})  # Añadir margen superior para separación
+    ], className='container')
 
     @dash_app.callback(
         Output('info-box', 'children'),
@@ -91,26 +98,26 @@ def init_dashboard(server):
             return []
 
         info_box = html.Div([
-            html.H3(f'Empresa: {selected_empresa}', style={'text-align': 'center', 'color': '#ffffff'}),
+            html.H3(f'Empresa: {selected_empresa}', className='info-title'),
             html.Div([
                 html.Div([
-                    html.H4('Capitalización de Mercado', style={'margin-bottom': '5px', 'color': '#ffffff'}),
-                    html.P(f'{data["MarketCapitalization"].values[0]}', style={'font-size': '32px', 'color': '#00bfff', 'text-align': 'center'}),
+                    html.H4('Capitalización de Mercado', className='info-subtitle'),
+                    html.P(f'{data["MarketCapitalization"].values[0]}', className='info-value market-cap', style={'color': '#00bfff'}),
                 ], className='info-card'),
                 html.Div([
-                    html.H4('P/E Ratio', style={'margin-bottom': '5px', 'color': '#ffffff'}),
-                    html.P(f'{data["PERatio"].values[0]}', style={'font-size': '32px', 'color': '#ffcc00', 'text-align': 'center'}),
+                    html.H4('P/E Ratio', className='info-subtitle'),
+                    html.P(f'{data["PERatio"].values[0]}', className='info-value pe-ratio', style={'color': '#ffcc00'}),
                 ], className='info-card'),
                 html.Div([
-                    html.H4('Ingresos TTM', style={'margin-bottom': '5px', 'color': '#ffffff'}),
-                    html.P(f'{data["RevenueTTM"].values[0]}', style={'font-size': '32px', 'color': '#ff6699', 'text-align': 'center'}),
+                    html.H4('Ingresos TTM', className='info-subtitle'),
+                    html.P(f'{data["RevenueTTM"].values[0]}', className='info-value revenue-ttm', style={'color': '#ff6699'}),
                 ], className='info-card'),
                 html.Div([
-                    html.H4('Margen de Beneficio', style={'margin-bottom': '5px', 'color': '#ffffff'}),
-                    html.P(f'{data["ProfitMargin"].values[0]} %', style={'font-size': '32px', 'color': '#66ff66', 'text-align': 'center'}),
+                    html.H4('Margen de Beneficio', className='info-subtitle'),
+                    html.P(f'{data["ProfitMargin"].values[0]} %', className='info-value profit-margin', style={'color': '#66ff66'}),
                 ], className='info-card'),
-            ], style={'display': 'flex', 'justify-content': 'space-around', 'margin-top': '20px'})
-        ], style={'border': '1px solid #00bfff', 'padding': '20px', 'border-radius': '10px', 'box-shadow': '0 4px 8px rgba(0, 0, 0, 0.2)'})
+            ], className='info-cards')
+        ], className='info-content')
 
         return info_box
 
@@ -133,7 +140,6 @@ def init_dashboard(server):
             font=dict(color='#ffffff')
         )
         return fig
-
 
     @dash_app.callback(
         Output('ebitda-ebit-graph', 'figure'),
@@ -204,13 +210,13 @@ def init_dashboard(server):
             return {}
 
         gastos = cost_of_revenue['costOfRevenue'] + operating_expenses['operatingExpenses']
-        ingresos = total_revenue['totalRevenue']
 
-        fig = go.Figure()
-        fig.add_trace(go.Bar(x=total_revenue['fiscalDateEnding'], y=ingresos, name='Ingresos'))
-        fig.add_trace(go.Bar(x=total_revenue['fiscalDateEnding'], y=gastos, name='Gastos'))
+        fig = go.Figure(data=[
+            go.Bar(x=total_revenue['fiscalDateEnding'], y=total_revenue['totalRevenue'], name='Ingresos'),
+            go.Bar(x=total_revenue['fiscalDateEnding'], y=gastos, name='Gastos')
+        ])
         fig.update_layout(
-            title='Gráfico de Distribución de Ingresos y Gastos',
+            title='Gráfico de Ingresos y Gastos',
             xaxis_title='Fecha Fiscal',
             yaxis_title='Valor',
             barmode='group',
@@ -223,8 +229,8 @@ def init_dashboard(server):
     @dash_app.callback(
         Output('comparacion-graph', 'figure'),
         [Input('empresa-dropdown', 'value'),
-         Input('comparacion-dropdown', 'value'),
-         Input('dato-dropdown', 'value')]
+        Input('comparacion-dropdown', 'value'),
+        Input('dato-dropdown', 'value')]
     )
     def update_comparacion_graph(selected_empresa, selected_empresas, selected_dato):
         if not selected_empresas or not selected_dato:
@@ -243,7 +249,7 @@ def init_dashboard(server):
                 if value > max_value:
                     max_value = value
             except ValueError:
-                pass  # Si el valor no es numérico, simplemente lo saltamos
+                pass 
 
         # Iterar sobre las empresas seleccionadas para la comparación
         for index, empresa in enumerate(selected_empresas):

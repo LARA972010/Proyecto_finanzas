@@ -126,9 +126,6 @@ Las visualizaciones se integran en la aplicación Flask mediante un iframe que m
     Sector: Tecnología.
     Descripción: NVIDIA es conocida por sus tarjetas gráficas y procesadores de alto rendimiento, utilizados en gaming, IA, y centros de datos.
 
-- FB (Meta Platforms, Inc.) (anteriormente Facebook):
-    Sector: Tecnología y Redes Sociales.
-    Descripción: Meta Platforms es la empresa matriz de Facebook, Instagram, WhatsApp y Oculus, centrada en redes sociales y realidad virtual.
     
 - PYPL (PayPal Holdings, Inc.): 
     Sector: Servicios Financieros.
@@ -137,38 +134,4 @@ Las visualizaciones se integran en la aplicación Flask mediante un iframe que m
 Estas empresas representan una amplia gama de sectores y son algunas de las más influyentes en sus respectivos campos.
 
 
-Gráfico de Volatilidad Implícita vs. Precio de Ejercicio
-Este gráfico muestra la relación entre la volatilidad implícita de las opciones y su precio de ejercicio. Aquí está lo que puedes interpretar:
-
-Volatilidad Implícita: Es una medida de la variabilidad esperada del precio de un activo subyacente o índice en el futuro.
-Precio de Ejercicio: Es el precio al que el titular de una opción tiene el derecho de comprar o vender el activo subyacente.
-Análisis y Utilidad:
-
-Patrón de Volatilidad: Puedes observar cómo varía la volatilidad implícita a medida que cambia el precio de ejercicio. Esto puede revelar patrones o tendencias que los traders pueden usar para determinar estrategias de trading.
-Implied Volatility Smile: A veces, este gráfico muestra una sonrisa de volatilidad implícita, donde las opciones fuera del dinero pueden tener volatilidades implícitas más altas que las opciones en el dinero. Esto puede proporcionar insights sobre las expectativas del mercado respecto a la futura volatilidad del precio del activo subyacente.
-Gráfico de Griegas vs. Precio de Ejercicio
-Las griegas son medidas sensibles al precio, al tiempo y a la volatilidad de las opciones. Este gráfico compara varias griegas (Delta, Gamma, Theta, Vega y Rho) con el precio de ejercicio:
-
-Delta: Muestra la sensibilidad del precio de una opción a cambios en el precio del activo subyacente.
-Gamma: Indica la tasa de cambio de Delta respecto al precio del activo subyacente.
-Theta: Muestra cómo se espera que el valor de una opción cambie con el paso del tiempo, todo lo demás siendo igual.
-Vega: Mide la sensibilidad de una opción al cambio en la volatilidad implícita del activo subyacente.
-Rho: Muestra la sensibilidad de una opción al cambio en las tasas de interés.
-Análisis y Utilidad:
-
-Sensibilidad a Diferentes Precios de Ejercicio: Puedes observar cómo cada una de las griegas varía con respecto al precio de ejercicio. Esto es crucial para entender cómo se comportará el valor de la opción en función del precio del activo subyacente y otros factores.
-Selección de Estrategias: Los traders pueden utilizar esta información para seleccionar estrategias de opciones en función de sus expectativas sobre la dirección del precio del activo subyacente, la volatilidad esperada y el paso del tiempo.
-Conclusión:
-Ambos gráficos proporcionan información valiosa para los traders y analistas financieros interesados en opciones. Ayudan a visualizar cómo cambian los precios y las expectativas del mercado en relación con diferentes factores clave como la volatilidad y las griegas. Estos gráficos son herramientas poderosas para la toma de decisiones informadas en el mercado de opciones.
-
-- Spread Bid-Ask: Indica la liquidez y los costos de transacción asociados con las opciones. (El spread bid-ask es una medida de la liquidez de las opciones. Un spread más pequeño indica una mayor liquidez, lo que generalmente significa que hay menos costos asociados con la compra y venta de la opción.)
-
-- Volumen y Open Interest: Indican la actividad y el interés en diferentes precios de ejercicio y fechas de vencimiento. (El volumen y el open interest son indicadores importantes de la actividad y el interés en las opciones en diferentes strikes y fechas de vencimiento.
-Gráfico de Volumen vs. Precio de Ejercicio:
-Este gráfico muestra qué strikes están viendo más actividad en términos de volumen negociado.)
-
-- Predicción de Precios de Opciones: Utiliza machine learning para hacer predicciones sobre los precios futuros de las opciones. (Este gráfico muestra dónde se encuentran las mayores posiciones abiertas (open interest).)
-
-## Autores
-
-- ** Lara García ** - 
+- ** Lara García Carnés ** - 

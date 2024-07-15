@@ -1,0 +1,86 @@
+body, html {
+    background-color: #121212;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 20px;
+}
+
+.title {
+    color: #00bfff;
+    text-align: center;
+    animation: flicker 2s infinite;
+}
+
+.info-box {
+    border: 2px solid #00bfff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: pulse 1.5s infinite;
+    margin-bottom: 20px; /* Añadir margen inferior para separación */
+}
+
+.info-title {
+    text-align: center;
+    color: #ffffff;
+}
+
+.info-subtitle {
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.info-value {
+    font-size: 32px;
+    text-align: center;
+}
+
+.info-cards {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.info-card {
+    width: 23%; /* Ajustar el tamaño de las tarjetas de información */
+    border: 2px solid #00bfff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 5px; /* Margen entre tarjetas */
+    text-align: center;
+}
+
+.dropdown {
+    width: 100%;
+    color: #000000;
+}
+
+.graph {
+    margin-top: 20px;
+}
+
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px #236e87, 0 0 10px #236e87, 0 0 20px #236e87, 0 0 40px #236e87;
+    }
+    50% {
+        box-shadow: 0 0 20px #236e87, 0 0 40px #236e87, 0 0 80px #236e87, 0 0 120px #236e87;
+    }
+    100% {
+        box-shadow: 0 0 5px #236e87, 0 0 10px #236e87, 0 0 20px #236e87, 0 0 40px #236e87;
+    }
+}
